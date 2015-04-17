@@ -34,6 +34,5 @@ class Main {
 
 		// Set visible
 		frame.pack();
-		frame.setVisible(true);
 	}
 }
