@@ -10,24 +10,22 @@ class CelsiusConverter extends JFrame {
 	private JTextField textField;
 	
 	private JLabel farenheitLabel;
-	private JLabel farenheitDisplay;
 	
 	private int celsius;
 	private int farenheit;
 
-	final private int WINDOW_WIDTH = 310;
+	final private int TEXT_COLUMN = 4;
+
+	final private int WINDOW_WIDTH = 180;
 	final private int WINDOW_HEIGHT = 100;
 
-	public CelsiusConverter(int f, int c) {
+	public CelsiusConverter() {
 
-		farenheit = f;
-		celsius = c;
-
-		objectBuilder(farenheit);
+		buildFrame(farenheit);
 
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		setTitle("Celsius Converter");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		buildPanel();
 
@@ -35,13 +33,12 @@ class CelsiusConverter extends JFrame {
 		setVisible(true);
 	}
 
-	private	void objectBuilder(int degree) {
+	private	void buildFrame(int degree) {
 
 		panel = new JPanel();
-		convertButton = new JButton();
-		textField = new JTextField();
-		farenheitLabel = new JLabel("Farenheit: ");
-		farenheitDisplay = new JLabel("" + degree + " degrees");
+		convertButton = new JButton("Convert");
+		textField = new JTextField(TEXT_COLUMN);
+		farenheitLabel = new JLabel("Farenheit: " + farenheit + " degrees");
 	}
 
 	private void buildPanel() {
@@ -49,7 +46,7 @@ class CelsiusConverter extends JFrame {
 		panel.add(textField);
 		panel.add(convertButton);
 		panel.add(farenheitLabel);
-		panel.add(farenheitDisplay);
+		convertButton.addActionListener(new CelsiusButtonListener	());
 	}
 
 	public int celsiusToFarenheit() {
@@ -57,15 +54,14 @@ class CelsiusConverter extends JFrame {
 		return 0;
 	}
 
-	private class CelsiusControl implements ActionListener {
+	private class CelsiusButtonListener implements ActionListener {
 	
-	public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == convertButton) {
+			celsius = Integer.parseInt(textField.getText());
 			
 			farenheit = (celsius - 32) * (5/9);
-			textField.setText("" + celsius);			
+			farenheitLabel.setText("Farenheit: " + farenheit + " degrees");
 		}
 	}
-}
 }
