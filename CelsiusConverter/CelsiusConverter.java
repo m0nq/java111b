@@ -10,9 +10,6 @@ class CelsiusConverter extends JFrame {
 	private JTextField textField;
 	
 	private JLabel farenheitLabel;
-	
-	private int celsius;
-	private int farenheit;
 
 	final private int TEXT_COLUMN = 4;
 
@@ -21,24 +18,24 @@ class CelsiusConverter extends JFrame {
 
 	public CelsiusConverter() {
 
-		buildFrame(farenheit);
+		buildFrame();
 
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		setTitle("Celsius Converter");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+
 		buildPanel();
 
 		add(panel);
 		setVisible(true);
 	}
 
-	private	void buildFrame(int degree) {
+	private	void buildFrame() {
 
 		panel = new JPanel();
 		convertButton = new JButton("Convert");
 		textField = new JTextField(TEXT_COLUMN);
-		farenheitLabel = new JLabel("Farenheit: " + farenheit + " degrees");
+		farenheitLabel = new JLabel("Farenheit: degrees");
 	}
 
 	private void buildPanel() {
@@ -46,22 +43,19 @@ class CelsiusConverter extends JFrame {
 		panel.add(textField);
 		panel.add(convertButton);
 		panel.add(farenheitLabel);
-		convertButton.addActionListener(new CelsiusButtonListener	());
+		convertButton.addActionListener(new CelsiusButtonListener());
 	}
 
-	public int celsiusToFarenheit() {
-
-		return 0;
+	private void celsiusToFarenheit(int c) {
+			
+			farenheitLabel.setText("Farenheit: " + ((c * (9/5)) + 32) + " degrees");
 	}
 
 	private class CelsiusButtonListener implements ActionListener {
 	
 		public void actionPerformed(ActionEvent e) {
 
-			celsius = Integer.parseInt(textField.getText());
-			
-			farenheit = (celsius - 32) * (5/9);
-			farenheitLabel.setText("Farenheit: " + farenheit + " degrees");
+			celsiusToFarenheit(Integer.parseInt(textField.getText()));
 		}
 	}
 }
