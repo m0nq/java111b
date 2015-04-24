@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -29,8 +30,10 @@ class NumberGuesserII extends JFrame {
 			buildFrame();
 
 			setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+			setLocation(300, 300);
 			setTitle("Number Guesser II");
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			// setLayout(new FlowLayout());
 
 			buildPanel();
 
@@ -56,38 +59,37 @@ class NumberGuesserII extends JFrame {
 		panel.add(correctButton);
 		panel.add(higherButton);
 		panel.add(numberDisplay);
-		lowerButton.addActionListener(new NumberGuesserListener());
+		lowerButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+
+				max = middle;
+				middle = getMidpoint(min, max);
+				numberDisplay.setText("Is it... " + middle + "?");
+		}});
+		
 		correctButton.addActionListener(new NumberGuesserListener());
-		higherButton.addActionListener(new NumberGuesserListener());
+
+		higherButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				min = middle;
+				middle = getMidpoint(min, max);
+				numberDisplay.setText("Is it... " + middle + "?");
+		}});
 	}
 
 	public static int getMidpoint(int low, int high) {
 		
 		return (low + high) / 2;
 	}
-	
-	public static void main(String[] args) {
-		
-		new NumberGuesserII();
-	}
 
 	private class NumberGuesserListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 
-			if (e.getSource() == higherButton) {
-				
-				min = middle;
-				middle = getMidpoint(min, max);
-				numberDisplay.setText("Is it... " + middle + "?");
-			} 
-			else if (e.getSource() == lowerButton) {
-				
-				max = middle;
-				middle = getMidpoint(min, max);
-				numberDisplay.setText("Is it... " + middle + "?");
-			} 
-			else if (e.getSource() == correctButton) {
+			if (e.getSource() == correctButton) {
 			
 				inquiryDisplay.setText("Excellent!");	
 				numberDisplay.setText("It was " + middle + "!");
