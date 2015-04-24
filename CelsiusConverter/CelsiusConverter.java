@@ -43,7 +43,13 @@ class CelsiusConverter extends JFrame {
 		panel.add(textField);
 		panel.add(convertButton);
 		panel.add(farenheitLabel);
-		convertButton.addActionListener(new CelsiusButtonListener());
+		convertButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+
+				celsiusToFarenheit(Integer.parseInt(textField.getText()));
+			}
+		});
 	}
 
 	private void celsiusToFarenheit(int c) {
@@ -51,11 +57,9 @@ class CelsiusConverter extends JFrame {
 			farenheitLabel.setText("Farenheit: " + ((c * (9/5)) + 32) + " degrees");
 	}
 
-	private class CelsiusButtonListener implements ActionListener {
-	
-		public void actionPerformed(ActionEvent e) {
+	public static void main(String[] args) {
 
-			celsiusToFarenheit(Integer.parseInt(textField.getText()));
-		}
+		// create a new celsius object
+		new CelsiusConverter();
 	}
 }
