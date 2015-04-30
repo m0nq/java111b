@@ -4,6 +4,9 @@ class NumberGuesserMain {
 	
 	public static void main(String[] args) {
 		
-		new NumberGuesserII();
+		do {
+			
+			NumberGuesser ng = new NumberGuesser();
+		} while (ng.playAgain());
 	}
 }
